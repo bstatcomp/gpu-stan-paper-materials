@@ -4,9 +4,9 @@ Replication scripts, measurement data, visualization scripts, and installation i
 
 ## Installing cmdstan with GPU support
 
-1. Install the toolchain and GPU driver
+### Install the toolchain and GPU driver
 
-### Ubuntu
+##### Ubuntu
 
 If using a NVIDIA device install the NVIDIA CUDA toolkit and clinfo tool.
 
@@ -17,7 +17,7 @@ If you have an AMD GPU install the OpenCL driver available here:
 
 https://www.amd.com/en/support/kb/release-notes/rn-prorad-lin-amdgpupro
 
-### Windows
+##### Windows
 
 Install the latest Rtools suite if you don't already have it. During the installation make sure that the 64-bit toolchain is installed. You also need to verify that you have the System Enviroment variable Path updated to include the path to the g++ compiler (<Rtools installation path>\mingw_64\bin).
 
