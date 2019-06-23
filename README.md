@@ -6,23 +6,22 @@ Replication scripts, measurement data, visualization scripts, and installation i
 
 1. Install the toolchain and GPU driver
 
-###Ubuntu
+### Ubuntu
 
 If using a NVIDIA device install the NVIDIA CUDA toolkit and clinfo tool.
 
-apt update
-
-apt install nvidia-cuda-toolkit clinfo
+`apt update`
+`apt install nvidia-cuda-toolkit clinfo`
 
 If you have an AMD GPU install the OpenCL driver available here:
 
 https://www.amd.com/en/support/kb/release-notes/rn-prorad-lin-amdgpupro
 
-###Windows
+### Windows
 
-Install the latest Rtools suite if you don't already have it. During the installation make sure that the 64 bit toolchain is installed. You also need to verify that you have the System Enviroment variable Path updated to include the path to the g++ compiler (<Rtools installation path>\mingw_64\bin).
+Install the latest Rtools suite if you don't already have it. During the installation make sure that the 64-bit toolchain is installed. You also need to verify that you have the System Enviroment variable Path updated to include the path to the g++ compiler (<Rtools installation path>\mingw_64\bin).
 
-If you have a Nvidia card, install the latest Nvidia CUDA toolkit found on the NVIDIA support website. AMD users should use AMD APP SDK.
+If you have an NVIDIA device install the latest NVIDIA CUDA toolkit found on the NVIDIA support website. AMD users should use the AMD APP SDK.
 
 2. Clone cmdstan with the appropriate branch
 
