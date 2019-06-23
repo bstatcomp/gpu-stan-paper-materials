@@ -10,9 +10,10 @@ Replication scripts, measurement data, visualization scripts, and installation i
 
 If using a NVIDIA device install the NVIDIA CUDA toolkit and clinfo tool.
 
-`apt update`
-
-`apt install nvidia-cuda-toolkit clinfo`
+```
+apt update
+apt install nvidia-cuda-toolkit clinfo
+```
 
 If you have an AMD GPU install the OpenCL driver available here:
 
@@ -36,14 +37,12 @@ These instructions assume that you exactly 1 GPU in the system. If used on a sys
 
 Create a cmdstan/make/local file. Write the following content into the file:
 
-`STAN_OPENCL=true`
-
-`OPENCL_DEVICE_ID=0`
-
-`OPENCL_PLATFORM_ID=0`
-
-`CXXFLAGS+= -DSTAN_OPENCL_CACHE=true`
-
+```
+STAN_OPENCL=true
+OPENCL_DEVICE_ID=0
+OPENCL_PLATFORM_ID=0
+CXXFLAGS+= -DSTAN_OPENCL_CACHE=true
+```
 On Windows add the following line
 
 `LDFLAGS_OPENCL= -L"$(CUDA_PATH)\lib\x64" -lOpenCL`
