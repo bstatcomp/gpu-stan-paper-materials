@@ -1,5 +1,11 @@
 # Replication scripts
 
+## End-to-end measurements
+
+The *logistic regression* and *GP regression* end-to-end measurements are run by two separate R scripts with common utility R scripts that communicate with cmdstan, generate data, and measure performance. The end-to-end measurements require the following R packages: rstan, digest, microbenchmark and ggplot2.
+
+Before a script can be run, the user needs to specify the location of cmdstan. It is possible to simultaneously run and compare GPU and CPU versions by specifying two different cmdstan folders - one compiled with and one compiled without GPU support. The scripts allow the user to specify a range for each dimension of data and the experiment is run on all possible combinations. Intermediate files (model C++ code, compiled models, datasets, samples) are output into a temporary folder.
+
 ## Cholesky measurements
 
 1. Setup cmdstan with GPU support (see instructions [here](https://github.com/bstatcomp/gpu-stan-paper-materials/blob/master/README.md)).
