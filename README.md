@@ -55,8 +55,9 @@ if you are using an AMD GPU.
 
 If CUDA_PATH or AMDAPPSDKROOT environment variables are not present on your system, search for the OpenCL.lib file and replace the variables with the path to the OpenCL.lib file.
 
-### STEP 4: Compile cmdstan
+### STEP 4: Compile and test cmdstan
 
-TODO
+Compile cmdstan by running `make build -j8` in the cmdstan folder.
+Check if the OpenCL/GPU support is succesfully enabled by running `python runCmdStanTests.py src/test/interface/opencl_test.cpp`. In order to run this test you need to have Python 2 installed on your system.
 
 ### STEP 5: Run illustrative example
