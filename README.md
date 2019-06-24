@@ -58,6 +58,6 @@ If CUDA_PATH or AMDAPPSDKROOT environment variables are not present on your syst
 ### STEP 4: Compile and test cmdstan
 
 Compile cmdstan by running `make build -j8` in the cmdstan folder.
-Check if the OpenCL/GPU support is succesfully enabled by running `python runCmdStanTests.py src/test/interface/opencl_test.cpp`. In order to run this test you need to have Python2 installed on your system.
+Check if the OpenCL/GPU support is succesfully enabled by running `python runCmdStanTests.py src/test/interface/opencl_test.cpp`. In order to run this test you need to have Python 2 installed on your system.
 
 ### STEP 5: Run illustrative example
