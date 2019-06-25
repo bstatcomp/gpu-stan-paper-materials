@@ -4,6 +4,8 @@ Replication scripts, measurement data, visualization scripts, and installation i
 
 ## Installing cmdstan with GPU support
 
+These instructions assume that you have an NVIDIA or AMD GPU installed in your system.
+
 ### STEP 1: Install the toolchain and GPU driver
 
 ##### Ubuntu
@@ -49,7 +51,9 @@ If CUDA_PATH or AMDAPPSDKROOT environment variables are not present on your syst
 
 ### STEP 4: Compile and test cmdstan
 
-Compile cmdstan by running `make build -j8` in the cmdstan folder.
+Compile cmdstan by running `make clean-all` and `make build -j8` in the cmdstan folder.
 Check if the OpenCL/GPU support is succesfully enabled by running `python runCmdStanTests.py src/test/interface/opencl_test.cpp`. In order to run this test you need to have Python 2 installed on your system.
 
-### STEP 5: Run illustrative example
+### STEP 5: You're ready to go!
+
+You can now use Stan with GPU support! A good place to start are the [logistic regression or GP regression](https://github.com/bstatcomp/gpu-stan-paper-materials/tree/master/replicationScripts/endToEnd) examples from the paper. Try running the replication scripts with and without GPU support (recompile cmdstan without the local makefile) and compare the times. 
