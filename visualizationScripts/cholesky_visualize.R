@@ -41,7 +41,7 @@ for (folder in scenario_folders) {
 all_res <- all_res[complete.cases(all_res),]
 
 g1 <- ggplot(all_res, aes(x = n, y = speedup, group = GPU, colour = GPU)) +
-  geom_point() + geom_line() +
+  geom_point() + geom_line()+ theme_bw()  +
   theme(legend.position="bottom") + facet_wrap(~ scenario)
 plot(g1)
 ggsave(g1, file = "./output/cholesky_speedups.pdf", width = 10.5, height = 4)

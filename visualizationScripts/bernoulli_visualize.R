@@ -10,7 +10,7 @@ dat <- readRDS("../measurementData/Bernoulli/bernoulli.rds")
 # fixed k measurements
 dat1 <- dat[dat$k == 10,]
 g1 <- ggplot(dat1, aes(x = n, y = time_in_ms, group = type, colour = type)) +
-  geom_point() + geom_line() + theme(legend.position="bottom") + ylab("time (ms)")
+  geom_point() + geom_line() + theme_bw() + theme(legend.position="bottom") + ylab("time (ms)")
 plot(g1)
 ggsave(g1, file = "./output/bernoulli_fixed_k.pdf", width = 10.5 / 3 + 1, height = 4)
 
@@ -22,14 +22,14 @@ for (i in 1:nrow(tmp)) {
 }
 
 g1 <- ggplot(tmp, aes(x = n, y = time_in_ms, group = type, colour = type)) +
-  geom_point() + geom_line() + theme(legend.position="bottom") + ylab("speedup (relative to basic)")
+  geom_point() + geom_line() + theme_bw() + theme(legend.position="bottom") + ylab("speedup (relative to basic)")
 plot(g1)
 ggsave(g1, file = "./output/bernoulli_fixed_k_speedup.pdf", width = 10.5 / 3 + 1, height = 4)
 
 # variable k measurements
 dat1 <- dat[dat$k != 10,]
 g1 <- ggplot(dat1, aes(x = k, y = time_in_ms, group = type, colour = type)) +
-  geom_point() + geom_line() + theme(legend.position="bottom") + ylab("time (ms)")
+  geom_point() + geom_line() + theme_bw() + theme(legend.position="bottom") + ylab("time (ms)")
 plot(g1)
 ggsave(g1, file = "./output/bernoulli_variable_k.pdf", width = 10.5 / 3 + 1, height = 4)
 
@@ -40,7 +40,7 @@ for (i in 1:nrow(tmp)) {
 }
 
 g1 <- ggplot(tmp, aes(x = k, y = time_in_ms, group = type, colour = type)) +
-  geom_point() + geom_line() + theme(legend.position="bottom") + ylab("speedup (relative to basic)")
+  geom_point() + geom_line() + theme_bw() + theme(legend.position="bottom") + ylab("speedup (relative to basic)")
 plot(g1)
 ggsave(g1, file = "./output/bernoulli_variable_k_speedup.pdf", width = 10.5 / 3 + 1, height = 4)
 
