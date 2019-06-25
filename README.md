@@ -43,15 +43,7 @@ OPENCL_DEVICE_ID=0
 OPENCL_PLATFORM_ID=0
 CXXFLAGS+= -DSTAN_OPENCL_CACHE=true
 ```
-On Windows add the following line
-
-`LDFLAGS_OPENCL= -L"$(CUDA_PATH)\lib\x64" -lOpenCL`
-
-if you are using NVIDIA or 
-
-`LDFLAGS_OPENCL= -L"$(AMDAPPSDKROOT)lib\x86_64" -lOpenCL`
-
-if you are using an AMD GPU.
+On Windows add the following line `LDFLAGS_OPENCL= -L"$(CUDA_PATH)\lib\x64" -lOpenCL` if you are using NVIDIA or `LDFLAGS_OPENCL= -L"$(AMDAPPSDKROOT)lib\x86_64" -lOpenCL` if you are using an AMD GPU.
 
 If CUDA_PATH or AMDAPPSDKROOT environment variables are not present on your system, search for the OpenCL.lib file and replace the variables with the path to the OpenCL.lib file.
 
