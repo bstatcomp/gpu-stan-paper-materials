@@ -1,10 +1,6 @@
 #include <Eigen/Dense>
-#include <stan/math/rev/core.hpp>
-#include <stan/math/prim/mat.hpp>
-#include <stan/math/rev/mat.hpp>
+#include <stan/math/prim.hpp>
 #include <iostream>
-#include <ctime>
-#include <ratio>
 #include <chrono>
 
 #define NUM_OF_ITERATIONS 9

@@ -1,6 +1,6 @@
 # gpu-stan-paper-materials
 
-TODO(Rok): New title
+TODO(Rok): New paper title
 Replication scripts, measurement data, visualization scripts, and installation instructions for the paper "GPU-based Parallel Computation Support for Stan".
 
 ## Installing cmdstan with GPU support
@@ -38,12 +38,6 @@ In order to run any OpenCL application you need to specify the platform and devi
 If you have multiple device you first need to determine the platform and device ID of your target device. You can use the `clinfo` tool to list all OpenCL-enabled devices and their IDs. On Linux `clinfo` can be obtained using `sudo apt install clinfo` or equivalent. You can also build the tool from source that is available [here](https://github.com/Oblomov/clinfo).
 
 Windows binaries of `clinfo` are available [here](https://github.com/Oblomov/clinfo#windows-support).
-
-#### Windows
-
-If you only have a single GPU and no CPU OpenCL installation, you can proceed to the next step. Note that the OpenCL platform and device IDs are 0 as you only have a single OpenCL-enabled device.
-
-If you have multiple device you need to determine the platform and device ID of your target device. You can use the `clinfo` tool to list all OpenCL-enabled devices and their. On Ubuntu `lclinfo` can be obtained using `sudo apt install clinfo`. 
 
 ### STEP 4: (Windows only) Specify the location of the OpenCL library
 
