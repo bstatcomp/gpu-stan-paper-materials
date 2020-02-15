@@ -1,3 +1,7 @@
+create_datagen <- function(name, variants, generator, normalizer) {
+  list(name = name, variants = variants, generator = generator, normalizer = normalizer)
+}
+
 generator = function(variant) {
   
   inv_logit <- function(x) {
