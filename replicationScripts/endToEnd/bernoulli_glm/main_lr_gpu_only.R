@@ -15,12 +15,9 @@ num_warmup <- 500
 # Source interface to dataset generator
 source("../helperScripts/simple_linear/dg_simple_linear.R")
 
-#non_glm_model <- cmdstan_model("./Stan/lr_basic.stan")
-glm_model <- cmdstan_model("./Stan/lr_glm.stan")
 opencl_glm_model <- cmdstan_model("./Stan/lr_glm_opencl.stan", opencl = TRUE)
 
-# models <- list(non_glm_model, glm_model, opencl_glm_model)
-models <- list(glm_model, opencl_glm_model)
+models <- list(opencl_glm_model)
 
 # List datasets
 datagens <- list(d0 = dg_simple_linear(variants = expand.grid(seed = 0,
