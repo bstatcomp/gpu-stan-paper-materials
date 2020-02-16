@@ -4,9 +4,9 @@ library(ggplot2)
 library(cmdstanr)
 library("posterior")
 
-set_cmdstan_path("C:/Users/Rok/Desktop/cmdstan/")
+set_cmdstan_path("~/cmdstan/")
 
-n = 4^c(10) # no. of observations
+n = 4^c(3:10) # no. of observations
 k = 10 # no. of input variables
 res_type = "bernoulli" # response type
 n_reps <- 3
@@ -16,7 +16,7 @@ source("../helperScripts/simple_linear/dg_simple_linear.R")
 
 # non_glm_model <- cmdstan_model("./Stan/lr_basic.stan")
 # glm_model <- cmdstan_model("./Stan/lr_glm.stan")
-# opencl_glm_model <- cmdstan_model("./Stan/lr_glm_opencl.stan", opencl = TRUE)
+opencl_glm_model <- cmdstan_model("./Stan/lr_glm_opencl.stan", opencl = TRUE)
 
 #models <- list(non_glm_model, glm_model, opencl_glm_model)
 models <- list(opencl_glm_model)
@@ -26,63 +26,63 @@ datagens <- list(d0 = dg_simple_linear(variants = expand.grid(seed = 0,
                                                               n = n,          # no. of observations
                                                               k = k,                # no. of input variables
                                                               type = "bernoulli")))  # response type
-# num_chains = 1
-# num_cores = 1
-# # Run experiment
-# for (datagen in datagens) {
-#   res <- list()
-#   for (i in 1:nrow(datagen$variants)) {
-#      variant <- datagen$variants[i,]
-#      print("num_cores")
-#      print(num_cores)
-#      print(variant)
-#      stan_data <- datagen$generator(variant)
-#      for (model in models) {
-#        for (j in 1:n_reps) {
-#          fit <- model$sample(data = stan_data, seed = 1, num_chains = num_chains, num_cores = num_cores)
-#          res_variant <- list(stan_file = model$stan_file(),
-#                              datagen = datagen$name,
-#                              time = fit$time(),
-#                              variant = i, rep = j,
-#                              variant_val = variant,
-#                              num_cores = num_cores,
-#                              num_chain = num_chains,
-#                              results = summarise_draws(fit$draws(),"mean"))
-#          res[[length(res)+1]] <- res_variant
-#          saveRDS(res, file = "./lr_results.rds")
-#       }
-#     }
-#   }
-# }
-#
-# num_chains = 2
-# num_cores = 2
-# # Run experiment
-# for (datagen in datagens) {
-#   res <- list()
-#   for (i in 1:nrow(datagen$variants)) {
-#     variant <- datagen$variants[i,]
-#     print("num_cores")
-#     print(num_cores)
-#     print(variant)
-#     stan_data <- datagen$generator(variant)
-#     for (model in models) {
-#       for (j in 1:n_reps) {
-#         fit <- model$sample(data = stan_data, seed = 1, num_chains = num_chains, num_cores = num_cores)
-#         res_variant <- list(stan_file = model$stan_file(),
-#                             datagen = datagen$name,
-#                             time = fit$time(),
-#                             variant = i, rep = j,
-#                             variant_val = variant,
-#                             num_cores = num_cores,
-#                             num_chain = num_chains,
-#                             results = summarise_draws(fit$draws(),"mean"))
-#         res[[length(res)+1]] <- res_variant
-#         saveRDS(res, file = "./lr_results_2.rds")
-#       }
-#     }
-#   }
-# }
+num_chains = 1
+num_cores = 1
+# Run experiment
+for (datagen in datagens) {
+  res <- list()
+  for (i in 1:nrow(datagen$variants)) {
+     variant <- datagen$variants[i,]
+     print("num_cores")
+     print(num_cores)
+     print(variant)
+     stan_data <- datagen$generator(variant)
+     for (model in models) {
+       for (j in 1:n_reps) {
+         fit <- model$sample(data = stan_data, seed = 1, num_chains = num_chains, num_cores = num_cores)
+         res_variant <- list(stan_file = model$stan_file(),
+                             datagen = datagen$name,
+                             time = fit$time(),
+                             variant = i, rep = j,
+                             variant_val = variant,
+                             num_cores = num_cores,
+                             num_chain = num_chains,
+                             results = summarise_draws(fit$draws(),"mean"))
+         res[[length(res)+1]] <- res_variant
+         saveRDS(res, file = "./lr_results.rds")
+      }
+    }
+  }
+}
+
+num_chains = 2
+num_cores = 2
+# Run experiment
+for (datagen in datagens) {
+  res <- list()
+  for (i in 1:nrow(datagen$variants)) {
+    variant <- datagen$variants[i,]
+    print("num_cores")
+    print(num_cores)
+    print(variant)
+    stan_data <- datagen$generator(variant)
+    for (model in models) {
+      for (j in 1:n_reps) {
+        fit <- model$sample(data = stan_data, seed = 1, num_chains = num_chains, num_cores = num_cores)
+        res_variant <- list(stan_file = model$stan_file(),
+                            datagen = datagen$name,
+                            time = fit$time(),
+                            variant = i, rep = j,
+                            variant_val = variant,
+                            num_cores = num_cores,
+                            num_chain = num_chains,
+                            results = summarise_draws(fit$draws(),"mean"))
+        res[[length(res)+1]] <- res_variant
+        saveRDS(res, file = "./lr_results_2.rds")
+      }
+    }
+  }
+}
 
 num_chains = 4
 num_cores = 4
