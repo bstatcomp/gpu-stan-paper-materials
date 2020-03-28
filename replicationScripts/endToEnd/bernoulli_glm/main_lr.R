@@ -3,9 +3,9 @@ library(ggplot2)
 library(cmdstanr)
 library("posterior")
 
-n = c(4^c(3:10), 2*4^10, 4^11)  # no. of observations
+n = c(4^c(3:9), 4^9*c(2,4,8,16))  # no. of observations
 k = 10 # no. of input variables
-num_chains <- c(1) #c(1,2,4) # number of chains
+num_chains <- c(1,2,4) # number of chains
 n_reps <- 3 # no. of repeats for each input size
 
 # sampling settings
