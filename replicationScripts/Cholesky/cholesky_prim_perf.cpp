@@ -1,10 +1,6 @@
 #include <Eigen/Dense>
-#include <stan/math/rev/core.hpp>
-#include <stan/math/prim/mat.hpp>
-#include <stan/math/rev/mat.hpp>
+#include <stan/math/prim.hpp>
 #include <iostream>
-#include <ctime>
-#include <ratio>
 #include <chrono>
 
 #define NUM_OF_ITERATIONS 9
@@ -32,7 +28,7 @@ double time_iteration(int size){
 }
 
 int main(){
-  std::vector<int> sizes{100,500,1000,2000,3000,4000,5000,6000,7000,8000,9000,10000,11000,12000,13000,14000,15000,16000,17000,18000};
+  std::vector<int> sizes{100,500,1000,2000,3000,4000,6000,8000,10000,12000,14000,16000};
   for (auto &size : sizes)
   {  
     std::cout << "N = " << size << std::endl;

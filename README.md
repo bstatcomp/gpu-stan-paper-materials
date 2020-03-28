@@ -1,5 +1,6 @@
 # gpu-stan-paper-materials
 
+TODO(Rok): New paper title
 Replication scripts, measurement data, visualization scripts, and installation instructions for the paper "GPU-based Parallel Computation Support for Stan".
 
 ## Installing cmdstan with GPU support
@@ -27,33 +28,20 @@ Install the latest Rtools suite if you don't already have it. During the install
 
 If you have an NVIDIA device install the latest NVIDIA CUDA toolkit found on the NVIDIA support website. AMD users should use the AMD APP SDK.
 
-### STEP 2: Clone cmdstan with the appropriate branch
+### STEP 2: Setup cmdstanr and install cmdstan 2.22.1
 
-The cmdstan with the experimental Math branch can be cloned with the following command
 
-`git clone --shallow-submodules --recursive --depth 1 -b jss_special_issue --single-branch https://github.com/bstatcomp/cmdstan.git`
+### STEP 3: Determine the ID of your target device
 
-### STEP 3: Set up cmdstan to run with OpenCL
+In order to run any OpenCL application you need to specify the platform and device ID of your target device. If you only have a single OpenCL-enabled device both IDs are 0. In this case you can proceed to the next step.
 
-These instructions assume that you exactly 1 GPU in the system. If used on a system with multiple GPUs you need to modify the device and platform IDs. The correct IDs can be retrieved using the clinfo tool.
+If you have multiple device you first need to determine the platform and device ID of your target device. You can use the `clinfo` tool to list all OpenCL-enabled devices and their IDs. On Linux `clinfo` can be obtained using `sudo apt install clinfo` or equivalent. You can also build the tool from source that is available [here](https://github.com/Oblomov/clinfo).
 
-Create a cmdstan/make/local file. Write the following content into the file:
+Windows binaries of `clinfo` are available [here](https://github.com/Oblomov/clinfo#windows-support).
 
-```
-STAN_OPENCL=true
-OPENCL_DEVICE_ID=0
-OPENCL_PLATFORM_ID=0
-CXXFLAGS+= -DSTAN_OPENCL_CACHE=true
-```
-On Windows add the following line `LDFLAGS_OPENCL= -L"$(CUDA_PATH)\lib\x64" -lOpenCL` if you are using NVIDIA or `LDFLAGS_OPENCL= -L"$(AMDAPPSDKROOT)lib\x86_64" -lOpenCL` if you are using an AMD GPU.
+### STEP 4: (Windows only) Specify the location of the OpenCL library
 
-If CUDA_PATH or AMDAPPSDKROOT environment variables are not present on your system, search for the OpenCL.lib file and replace the variables with the path to the OpenCL.lib file.
+### STEP 5: Use OpenCL-enabled cmdstanr for your models or run the replication scripts
 
-### STEP 4: Compile and test cmdstan
+### STEP 6: Run the end-to-end scripts
 
-Compile cmdstan by running `make clean-all` and `make build -j8` in the cmdstan folder.
-Check if the OpenCL/GPU support is succesfully enabled by running `python runCmdStanTests.py src/test/interface/opencl_test.cpp`. In order to run this test you need to have Python 2 installed on your system.
-
-### STEP 5: You're ready to go!
-
-You can now use Stan with GPU support! A good place to start are the [logistic regression or GP regression](https://github.com/bstatcomp/gpu-stan-paper-materials/tree/master/replicationScripts/endToEnd) examples from the paper. Try running the replication scripts with and without GPU support (recompile cmdstan without the local makefile) and compare the times. 
