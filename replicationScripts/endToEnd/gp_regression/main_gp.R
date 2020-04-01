@@ -12,37 +12,34 @@ n_reps <- 3 # no. of repeats for each input size
 # sampling settings
 num_samples <- 200
 num_warmup <- 200
-set_cmdstan_path("~/Desktop/cmdstan")
+
 source("../system_settings.R")
 
 # Source interface to cmdstan and dataset generator
 source("../helperScripts/1D_nonlinear/dg_1D_nonlinear.R")
 
-
-
 if (end_to_end_tests_settings$run_cpu) {
-  # List models and cmdstan version to use
-    set_cmdstan_cpp_options(list()) # clear all cmdstan options to compile the CPU model
-    cpu_model <- cmdstan_model("GP.stan")
-    models <- c(cpu_model)
+  set_cmdstan_cpp_options(list()) # clear all cmdstan options to compile the CPU model
+  cpu_model <- cmdstan_model("GP.stan")
+  models <- c(cpu_model)
 } else {
-    cpu_model <- NULL
+  cpu_model <- NULL
 }
 
-# opencl_options <- list(
-#   stan_opencl = TRUE,
-#   opencl_platform_id = end_to_end_tests_settings$opencl_platform_id,
-#   opencl_device_id = end_to_end_tests_settings$opencl_device_id
-# )
-# if (isTRUE(.Platform$OS.type == "windows")) {
-#   opencl_options$ldflags_opencl = paste0("-L","\"", end_to_end_tests_settings$opencl_lib_path, "\""," -lOpenCL")
-# }
-# 
-# set_cmdstan_cpp_options(opencl_options)
-# opencl_model <- cmdstan_model("GP.stan", model_name = "gp_opencl", stanc_options = list("use-opencl"=TRUE), force_recompile=TRUE)
+opencl_options <- list(
+  stan_opencl = TRUE,
+  opencl_platform_id = end_to_end_tests_settings$opencl_platform_id,
+  opencl_device_id = end_to_end_tests_settings$opencl_device_id
+)
+if (isTRUE(.Platform$OS.type == "windows")) {
+  opencl_options$ldflags_opencl = paste0("-L","\"", end_to_end_tests_settings$opencl_lib_path, "\""," -lOpenCL")
+}
 
-# models <- c(cpu_model, opencl_model)
-models <- c(cpu_model)
+set_cmdstan_cpp_options(opencl_options)
+opencl_model <- cmdstan_model("GP.stan", model_name = "gp_opencl", stanc_options = list("use-opencl"=TRUE), force_recompile=TRUE)
+
+models <- c(cpu_model, opencl_model)
+
 # List datasets
 datagens <- list(d0 = dg_1D_nonlinear(variants = expand.grid(seed = 0,
                                                              n = n,
@@ -77,18 +74,8 @@ for (datagen in datagens) {
     }
   }
 }
-# Run experiment
-# res <- benchmark(models,
-#                  datagens,
-#                  n_reps = 1,                                           # number of measurements per setting
-#                  temp_dir = paste0(getwd(), "/temp/"),                # output folder for caching temp files
-#                  cmdstan_param_string = get_cmdstan_param_string())
 
-# # Save and visualize results
-# print(res$all_results)
-# saveRDS(res, file = "./GP_results.rds")
-
-# g1 <- ggplot(res$all_results, aes(x = n, y = time_in_ms, colour = paste(cmdstan_dir, stan_file, sep = "; "))) +
-#   geom_point() + geom_line()
-# plot(g1)
+g1 <- ggplot(res$all_results, aes(x = n, y = time_in_ms, colour = paste(cmdstan_dir, stan_file, sep = "; "))) +
+  geom_point() + geom_line()
+plot(g1)
 
