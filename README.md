@@ -1,47 +1,36 @@
 # gpu-stan-paper-materials
 
-TODO(Rok): New paper title
 Replication scripts, measurement data, visualization scripts, and installation instructions for the paper "GPU-based Parallel Computation Support for Stan".
 
-## Installing cmdstan with GPU support
+The replication scripts are split in two parts: the C++ function-level measurement scripts for the Cholesky decomposition function and the end-to-end R scripts that run Stan models with generated input data.
 
-These instructions assume that you have an NVIDIA or AMD GPU installed in your system.
-
-### STEP 1: Install the toolchain and GPU driver
-
-##### Ubuntu
-
-If using a NVIDIA device install the NVIDIA CUDA toolkit and clinfo tool.
-
-```
-apt update
-apt install nvidia-cuda-toolkit clinfo
-```
-
-If you have an AMD GPU install the OpenCL driver available here:
-
-https://www.amd.com/en/support/kb/release-notes/rn-prorad-lin-amdgpupro
-
-##### Windows
-
-Install the latest Rtools suite if you don't already have it. During the installation make sure that the 64-bit toolchain is installed. You also need to verify that you have the System Enviroment variable Path updated to include the path to the g++ compiler (<Rtools installation path>\mingw_64\bin).
-
-If you have an NVIDIA device install the latest NVIDIA CUDA toolkit found on the NVIDIA support website. AMD users should use the AMD APP SDK.
-
-### STEP 2: Setup cmdstanr and install cmdstan 2.22.1
+## Cholesky decomposition C++ measurement scripts
 
 
-### STEP 3: Determine the ID of your target device
+[Link](replicationScripts/Cholesky/README.md)
 
-In order to run any OpenCL application you need to specify the platform and device ID of your target device. If you only have a single OpenCL-enabled device both IDs are 0. In this case you can proceed to the next step.
+Prerequisites to run: 
+- C++ toolchain (make and a C++ compiler)
+- GPU driver with OpenCL support
+- A copy of the Stan Math library of version 3.1.1 or newer
 
-If you have multiple device you first need to determine the platform and device ID of your target device. You can use the `clinfo` tool to list all OpenCL-enabled devices and their IDs. On Linux `clinfo` can be obtained using `sudo apt install clinfo` or equivalent. You can also build the tool from source that is available [here](https://github.com/Oblomov/clinfo).
+These scripts run three time measurements on the C++ level for the Cholesky decomposition function:
+- function evaluation when the input is a matrix of doubles
+- function evaluation when the input is a matrix of stan::math::var
+- gradient evaluation
 
-Windows binaries of `clinfo` are available [here](https://github.com/Oblomov/clinfo#windows-support).
 
-### STEP 4: (Windows only) Specify the location of the OpenCL library
+## End-to-end tests for Stan models
 
-### STEP 5: Use OpenCL-enabled cmdstanr for your models or run the replication scripts
 
-### STEP 6: Run the end-to-end scripts
+[Link](replicationScripts/endToEnd/README.md)
 
+Prerequisites to run: 
+- a R enviroment and a C++ toolchain 
+- GPU driver with OpenCL support
+- cmdstanr R package
+
+These scripts run three time measurements on the C++ level for the Cholesky decomposition function:
+- function evaluation when the input is a matrix of doubles
+- function evaluation when the input is a matrix of stan::math::var
+- gradient evaluation

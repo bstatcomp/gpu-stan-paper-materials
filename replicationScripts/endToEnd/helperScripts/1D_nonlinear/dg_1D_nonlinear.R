@@ -1,3 +1,7 @@
+create_datagen <- function(name, variants, generator, normalizer) {
+  list(name = name, variants = variants, generator = generator, normalizer = normalizer)
+}
+
 generator = function(variant) {
   N <- variant$n
   x <- runif(N, -10, 10)

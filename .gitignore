@@ -1,5 +1,7 @@
 visualizationScripts/.Rhistory
-replicationScripts/endToEnd/gp_regression/GP_results.rds
+/replicationScripts/endToEnd/gp_regression/GP_results.rds
 /replicationScripts/Cholesky/cholesky_prim_perf
 /replicationScripts/Cholesky/cholesky_rev_grad_perf
 /replicationScripts/Cholesky/cholesky_rev_perf
+/replicationScripts/endToEnd/bernoulli_glm/lr_glm
+/replicationScripts/endToEnd/bernoulli_glm/lr_glm_opencl
