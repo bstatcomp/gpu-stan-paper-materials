@@ -36,7 +36,7 @@ if (isTRUE(.Platform$OS.type == "windows")) {
 }
 
 set_cmdstan_cpp_options(opencl_options)
-opencl_glm_model <- cmdstan_model("./lr_glm.stan", model_name = "lr_glm_opencl")
+opencl_glm_model <- cmdstan_model("./lr_glm.stan", model_name = "lr_glm_opencl", stanc_options = list("use-opencl"=TRUE), quiet = FALSE, force_recompile=TRUE)
 
 models <- c(glm_model, opencl_glm_model)
 
@@ -51,6 +51,7 @@ for (datagen in datagens) {
   res <- NULL
   for (i in 1:nrow(datagen$variants)) {
      variant <- datagen$variants[i,]
+     print(variant)
      stan_data <- datagen$generator(variant)
      for (model in models) {
        for (j in 1:n_reps) {
@@ -70,7 +71,7 @@ for (datagen in datagens) {
                                       rep = j,
                                       draws_mean)
                       )
-        saveRDS(res, file = "./results/lr_results.rds")
+        saveRDS(res, file = "./lr_results.rds")
       }
     }
   }
