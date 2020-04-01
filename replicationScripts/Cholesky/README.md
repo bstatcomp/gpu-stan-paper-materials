@@ -1,8 +1,5 @@
 # Replication scripts
 
-## End-to-end measurements
-
-
 ## Cholesky decomposition C++ performance measurements
 
 ### STEP 1: Install the toolchain and GPU driver
@@ -46,12 +43,15 @@ In the unlikely case that your system has more than one OpenCL-enabled device us
 
 Windows binaries of `clinfo` are available [here](https://github.com/Oblomov/clinfo#windows-support).
 
-TODO(Rok): supply typical paths for Nvidia and AMD
-
 On Windows you need to add an additional line that links the OpenCL library. First locate the the OpenCL.lib file and then add the following line, where you replace `$(OPENCL_LIB_PATH)` with the actual path to the OpenCL.lib file:
 
 ```
 LDFLAGS_OPENCL= -L"$(OPENCL_LIB_PATH)/" -lOpenCL
+```
+
+Example: 
+```
+LDFLAGS_OPENCL= -L"C:/Program Files/OCL_SDK_Light/lib/x86_64" -lOpenCL
 ```
 
 ### STEP 4: Build performance tests
