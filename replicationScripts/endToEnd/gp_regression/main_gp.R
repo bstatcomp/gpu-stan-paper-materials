@@ -5,13 +5,13 @@ library(ggplot2)
 library(cmdstanr)
 library("posterior")
 
-n = c(16, 32, 64, 128, 256, 512, 1024, 2048)
-num_chains <- c(2,4) # number of chains
+n = c(16,32,64,128,256,512,1024,2048,3072,4096)
+num_chains <- c(1,2,4) # number of chains
 n_reps <- 3 # no. of repeats for each input size
 
 # sampling settings
-num_samples <- 200
-num_warmup <- 200
+num_samples <- 10
+num_warmup <- 30
 
 source("../system_settings.R")
 
@@ -36,14 +36,15 @@ if (isTRUE(.Platform$OS.type == "windows")) {
 }
 
 set_cmdstan_cpp_options(opencl_options)
-opencl_model <- cmdstan_model("GP.stan", model_name = "gp_opencl", stanc_options = list("use-opencl"=TRUE), force_recompile=TRUE)
+opencl_model <- cmdstan_model("GP.stan", model_name = "gp_opencl", stanc_options = list("use-opencl"=TRUE))
 
-models <- c(cpu_model, opencl_model)
+models <- c(opencl_model)
 
 # List datasets
 datagens <- list(d0 = dg_1D_nonlinear(variants = expand.grid(seed = 0,
-                                                             n = n,
-                                                             num_chains = num_chains)))
+                                                             num_chains = num_chains,
+                                                             n = n
+                                                             )))
 
 for (datagen in datagens) {
   res <- NULL
