@@ -24,7 +24,7 @@ If you have an NVIDIA device install the latest NVIDIA CUDA toolkit found on the
 
 ### STEP 2: Install the rstan R package
 
-Install cmdstanr by running
+Install rstan by running
 
 ```
 install.packages("rstan")
@@ -40,7 +40,7 @@ Windows binaries of `clinfo` are available [here](https://github.com/Oblomov/cli
 
 ### STEP 4: Setup compiler flags
 
-Place the following in the `Rmakevars` file:
+Place the following in the `.Rmakevars` file:
 
 ```
 STAN_OPENCL=true
@@ -60,7 +60,6 @@ LDLFLAGS_OPENCL= -L$(PATH) -lOpenCL"
 ```R
 
 library(rstan)
-
 
 gp_model <- stan_model("gp.stan")
 
