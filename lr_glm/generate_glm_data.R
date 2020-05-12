@@ -16,7 +16,7 @@ generator = function(seed = 0, n = 1000, k = 10) {
   list(k = ncol(X), n = nrow(X), y = y, X = X)
 }
 
-data <- generator(1, 200, 50)
+data <- generator(1, 200000, 500)
 
 jsonlite::write_json(
   data,
