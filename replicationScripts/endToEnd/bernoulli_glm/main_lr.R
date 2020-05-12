@@ -3,7 +3,7 @@ library(ggplot2)
 library(cmdstanr)
 library("posterior")
 
-n = 20000
+n = 200000
 k = 500 # no. of input variables
 num_chains <- c(1,2,4) # number of chains
 n_reps <- 3 # no. of repeats for each input size

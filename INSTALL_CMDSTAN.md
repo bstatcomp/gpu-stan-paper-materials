@@ -66,9 +66,13 @@ On Linux run `make build`. On Windows run `mingw32-make build`. If you have mult
 
 ### STEP 5: Compile and run the supplied logistic regression model
 
-Compile the logistic regression example with `make path/to/lr_glm` or `mingw32-make path/to/lr_glm.exe` on Windows.
-
 ##### Linux
+
+First generate the input data for the logistic regression model. You can do that by running 
+```R
+Rscript generate_glm_data.R
+```
+in the `lr_glm` folder. The script requires the `jsonlite` package that can be installed by running `install.packages("jsonlite")`.
 
 If you place the `lr_glm` folder in the home (`~`) folder compile from the cmdstan folder with
 ```
@@ -80,6 +84,12 @@ and start sampling with
 ```
 
 ##### Windows
+
+First generate the input data for the logistic regression model. You can do that by running 
+```R
+Rscript.exe generate_glm_data.R
+```
+in the `lr_glm` folder. The script requires the `jsonlite` package that can be installed by running `install.packages("jsonlite")`.
 
 If you place the `lr_glm` folder in the home (`~`) folder compile from the cmdstan folder 
 ```

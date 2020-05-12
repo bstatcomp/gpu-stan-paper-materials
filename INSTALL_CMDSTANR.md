@@ -52,6 +52,8 @@ On Windows also identify the location of the `OpenCL.lib` file.
 
 ### STEP 4: Compile and run the model with GPU support
 
+Open `lr_glm_cmdstanr.R` and read the comments to set the system settings. Then run the script in your favorite R IDE.
+
 ```R
 library(cmdstanr)
 
