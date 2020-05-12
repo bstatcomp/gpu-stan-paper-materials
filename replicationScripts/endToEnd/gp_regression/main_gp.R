@@ -5,40 +5,43 @@ library(ggplot2)
 library(cmdstanr)
 library("posterior")
 
-n = c(16,32,64,128,256,512,1024,2048,3072,4096)
-num_chains <- c(1,2,4) # number of chains
-n_reps <- 3 # no. of repeats for each input size
+n = c(16)#,32,64,128,256,512,1024,2048,3072,4096)
+num_chains <- 1 #c(1,2,4) # number of chains
+n_reps <- 2 # no. of repeats for each input size
 
 # sampling settings
-num_samples <- 10
-num_warmup <- 30
+num_samples <- 1000
+num_warmup <- 1000
 
 source("../system_settings.R")
 
 # Source interface to cmdstan and dataset generator
 source("../helperScripts/1D_nonlinear/dg_1D_nonlinear.R")
 
-if (end_to_end_tests_settings$run_cpu) {
-  set_cmdstan_cpp_options(list()) # clear all cmdstan options to compile the CPU model
-  cpu_model <- cmdstan_model("GP.stan")
-  models <- c(cpu_model)
-} else {
-  cpu_model <- NULL
-}
 
-opencl_options <- list(
-  stan_opencl = TRUE,
-  opencl_platform_id = end_to_end_tests_settings$opencl_platform_id,
-  opencl_device_id = end_to_end_tests_settings$opencl_device_id
-)
-if (isTRUE(.Platform$OS.type == "windows")) {
-  opencl_options$ldflags_opencl = paste0("-L","\"", end_to_end_tests_settings$opencl_lib_path, "\""," -lOpenCL")
-}
+cpu_model <- cmdstan_model("GP.stan")
+models <- c(cpu_model)
 
-set_cmdstan_cpp_options(opencl_options)
-opencl_model <- cmdstan_model("GP.stan", model_name = "gp_opencl", stanc_options = list("use-opencl"=TRUE))
+# if (end_to_end_tests_settings$run_cpu) {
+#   set_cmdstan_cpp_options(list()) # clear all cmdstan options to compile the CPU model
+#   cpu_model <- cmdstan_model("GP.stan")
+#   models <- c(cpu_model)
+# } else {
+#   cpu_model <- NULL
+# }
+#
+# opencl_options <- list(
+#   stan_opencl = TRUE,
+#   opencl_platform_id = end_to_end_tests_settings$opencl_platform_id,
+#   opencl_device_id = end_to_end_tests_settings$opencl_device_id
+# )
+# if (isTRUE(.Platform$OS.type == "windows")) {
+#   opencl_options$ldflags_opencl = paste0("-L","\"", end_to_end_tests_settings$opencl_lib_path, "\""," -lOpenCL")
+# }
 
-models <- c(opencl_model)
+#opencl_model <- cmdstan_model("GP.stan", model_name = "gp_opencl", stanc_options = list("use-opencl"=TRUE))
+
+#models <- c(opencl_model)
 
 # List datasets
 datagens <- list(d0 = dg_1D_nonlinear(variants = expand.grid(seed = 0,
